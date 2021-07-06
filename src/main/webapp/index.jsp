@@ -43,7 +43,7 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
   <div class="humberger__menu__logo">
-    <a href="#"><img src="img/logo.png" alt=""></a>
+    <a href="login.jsp"><img src="img/logo.png" alt=""></a>
   </div>
   <div class="humberger__menu__cart">
     <ul>
@@ -63,7 +63,7 @@
       </ul>
     </div>
     <div class="header__top__right__auth">
-      <a href="login.jsp"><i class="fa fa-user"></i> Login</a>
+      <a href="#"><i class="fa fa-user"></i> Login</a>
     </div>
   </div>
   <nav class="humberger__menu__nav mobile-menu">
@@ -129,7 +129,7 @@
               </ul>
             </div>
             <div class="header__top__right__auth">
-              <a href="#"><i class="fa fa-user"></i> Login</a>
+              <a href="login.jsp"><i class="fa fa-user"></i> Login</a>
             </div>
           </div>
         </div>
