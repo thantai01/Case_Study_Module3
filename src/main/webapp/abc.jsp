@@ -22,9 +22,11 @@
 <div align="center">
     <table border="1" cellpadding="5">
         <c:forEach var="o" items="${listOrder}">
-            <td><c:out value="${o.id}"/></td>
-            <td><c:out value="${o.userName}"/></td>
-            <td><c:out value="${o.time}"/></td>
+            <tr>
+                <td><c:out value="${o.id}"/></td>
+                <td><c:out value="${o.userName}"/></td>
+                <td><c:out value="${o.time}"/></td>
+            </tr>
             <tr>
             <c:forEach var="od" items="${listDetail}">
             <tr>
@@ -32,7 +34,16 @@
                 <td><c:out value="${od.idOrder}"/></td>
                 <td><c:out value="${od.quantity}"/></td>
             </tr>
+
             </c:forEach>
+            <tr>
+                <c:forEach items="${listProduct}" var="p">
+                    <td><c:out value="${p.name}"/></td>
+                    <td><c:out value="${p.madeIn}"/></td>
+                    <td><img src="${p.image}" alt="" width="100px"></td>
+                    <td><c:out value="${p.quantity}"/></td>
+                </c:forEach>
+            </tr>
             </tr>
         </c:forEach>
     </table>

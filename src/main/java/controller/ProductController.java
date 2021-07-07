@@ -35,7 +35,8 @@ public class ProductController extends HttpServlet {
                 break;
             case "cart":
                 try {
-                    order(request,response);
+//                    order(request,response);
+                    viewOrderDetail(request,response);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -85,6 +86,25 @@ public class ProductController extends HttpServlet {
             e.printStackTrace();
         }
     }
+    private void viewOrderDetail(HttpServletRequest request,HttpServletResponse response) throws SQLException, ServletException, IOException {
+        User user = daoU.selectUser("hung");
+        List<Order> listO = daoO.showListOrder();
+        List<OrderDetail> listOD = new ArrayList<>();
+        List<Product> products =  new ArrayList<>();
+        for (Order o : listO) {
+            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
+
+        }
+        for (OrderDetail od:listOD) {
+            products.add(daoP.viewProduct(od.getIdProduct()));
+        }
+        System.out.println(products);
+        request.setAttribute("listProduct",products);
+        request.setAttribute("listOrder",listO);
+        request.setAttribute("listDetail",listOD);
+        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
+        ds.forward(request,response);
+    }
 
     private void order(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         User user = daoU.selectUser("hung");
@@ -93,6 +113,7 @@ public class ProductController extends HttpServlet {
         for (Order o : listO) {
             listOD = daoOD.showOrderDetailByIdOrder(o.getId());
         }
+
         request.setAttribute("listOrder",listO);
         request.setAttribute("listDetail",listOD);
         RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
