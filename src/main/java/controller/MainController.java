@@ -54,19 +54,17 @@ public class MainController extends HttpServlet {
     public void loginCheck(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ClassNotFoundException, ServletException {
         String user = request.getParameter("userName");
         String password = request.getParameter("userPassword");
-        User loginUser = LoginDAO.checkLogin(user,password,role);
-        if(user == null) {
-            response.sendRedirect("Main/login.jsp");
-        } else {
-            assert loginUser != null;
-            if (loginUser.getRole()== 0){
-                RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
-                rd.forward(request,response);
-            } else if(loginUser.getRole() ==1) {
-                RequestDispatcher rd = request.getRequestDispatcher("/userManager");
-                rd.forward(request,response);
-            }
+        User loginUser = LoginDAO.checkLogin(user,password);
+        if(user == null)
+            showLoginSite(request,response);
+        if (loginUser != null && loginUser.getRole() == 0) {
+            RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
+            rd.forward(request, response);
         }
-
+        if (loginUser != null && loginUser.getRole() == 1) {
+            RequestDispatcher rd = request.getRequestDispatcher("/userManager");
+            rd.forward(request, response);
+        }
     }
+
 }
