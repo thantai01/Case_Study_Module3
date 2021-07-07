@@ -22,6 +22,15 @@ public class Product {
         this.idType = idType;
     }
 
+    public Product(String name, int parseInt, String madeIn, String image, int parseInt1, int parseInt2) {
+        this.name = name;
+        this.price = parseInt;
+        this.madeIn = madeIn;
+        this.image = image;
+        this.quantity = parseInt1;
+        this.idType = parseInt2;
+    }
+
     public int getId() {
         return id;
     }

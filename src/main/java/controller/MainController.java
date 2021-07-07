@@ -1,6 +1,9 @@
 package controller;
 
+import dao.DAO;
+import dao.IProductDAO;
 import dao.LoginDAO;
+import model.Product;
 import model.User;
 
 import javax.servlet.*;
@@ -8,9 +11,13 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "Servlet", urlPatterns = "/main")
 public class MainController extends HttpServlet {
+    DAO<Product> productDAO = new IProductDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        showMainSite(request,response);
@@ -21,7 +28,12 @@ public class MainController extends HttpServlet {
             case "login": showLoginSite(request,response);break;
             case "viewProduct":  ; break;
             case "searchProduct": ; break;
-            default: showMainSite(request,response);
+            default:
+                try {
+                    showMainSite(request,response);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
@@ -40,10 +52,13 @@ public class MainController extends HttpServlet {
                 break;
             case "create":  ; break;
             case "": ; break;
-            default: showMainSite(request,response);
+//            default: showMainSite(request,response);
         }
     }
-    public void showMainSite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void showMainSite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        List<Product> listP;
+        listP = productDAO.showALl();
+        request.setAttribute("listP", listP);
         RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
         rd.forward(request,response);
     }
@@ -66,5 +81,18 @@ public class MainController extends HttpServlet {
             rd.forward(request, response);
         }
     }
+//    private void productIntroduce (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        List<Product> listP=new ArrayList<>();
+//        try {
+//            listP = productDAO.showALl();
+//            request.setAttribute("listP", listP);
+//            RequestDispatcher ds = request.getRequestDispatcher("/product");
+//            ds.forward(request, response);
+//            System.out.println(listP);
+//        } catch (SQLException | ClassNotFoundException exception) {
+//            exception.printStackTrace();
+//        }
+//    }
+
 
 }

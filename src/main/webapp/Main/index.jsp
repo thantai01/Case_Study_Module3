@@ -238,7 +238,7 @@
     </div>
 
     <div class="row featured__filter">
-      <c:forEach items="${listP}" var="p">
+      <c:forEach items="${requestScope['listP']}" var="p">
         <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
           <div class="featured__item">
             <div class="featured__item__pic set-bg" data-setbg="${p.image}" >
