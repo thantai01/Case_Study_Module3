@@ -2,8 +2,10 @@ package controller;
 
 import dao.DAO;
 import dao.IProductDAO;
+import dao.ITypeDAO;
 import dao.IUserDAO;
 import model.Product;
+import model.Type;
 import model.User;
 
 import javax.servlet.*;
@@ -16,13 +18,16 @@ import java.util.List;
 
 @WebServlet(name = "ProductController", urlPatterns = "/productManager")
 public class ProductController extends HttpServlet {
-    private DAO<Product> productDAO = new IProductDAO();
+    private DAO<Product> productDAO;
     private List<Product> listP;
+    private ITypeDAO daoT;
 
     public void init() {
         productDAO = new IProductDAO();
         listP = new ArrayList<>();
+        daoT = new ITypeDAO();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -90,17 +95,34 @@ public class ProductController extends HttpServlet {
 
 
     private void mainAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Product product = null;
         try {
             listP = productDAO.showALl();
             request.setAttribute("listP", listP);
             RequestDispatcher ds = request.getRequestDispatcher("product/productList.jsp");
+            request.setAttribute("product",product);
             ds.forward(request, response);
             System.out.println(listP);
         } catch (SQLException | ClassNotFoundException exception) {
             exception.printStackTrace();
         }
     }
-
+    private void viewProduct(HttpServletRequest request,HttpServletResponse response) throws SQLException {
+        Product product;
+        Type type;
+        int id = Integer.parseInt(request.getParameter("id"));
+        try {
+            product = productDAO.
+            type = daoT.viewType(product.getIdType());
+            RequestDispatcher ds = request.getRequestDispatcher("Main/shop-details.jsp");
+            request.setAttribute("p",product);
+            request.setAttribute("t",type);
+            System.out.println(type);
+            ds.forward(request,response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void viewProductDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String productID = request.getParameter("productID");
         Product product = productDAO.select(productID);
