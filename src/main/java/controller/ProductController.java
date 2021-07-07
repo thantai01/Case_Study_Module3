@@ -112,7 +112,7 @@ public class ProductController extends HttpServlet {
         Type type;
         int id = Integer.parseInt(request.getParameter("id"));
         try {
-            product = productDAO.
+            product = productDAO.viewProduct(id);
             type = daoT.viewType(product.getIdType());
             RequestDispatcher ds = request.getRequestDispatcher("Main/shop-details.jsp");
             request.setAttribute("p",product);

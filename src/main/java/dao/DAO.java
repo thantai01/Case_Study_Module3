@@ -10,4 +10,5 @@ public interface DAO<T> {
     boolean delete(String name) throws SQLException, ClassNotFoundException;
     boolean update(T t) throws SQLException;
 
+    T viewProduct(int id);
 }
