@@ -29,6 +29,8 @@ public class UserController extends HttpServlet {
                 case "edit": showEditForm(request,response); ; break;
                 case "delete": deleteUser(request,response);break;
                 case "Search": searchingUser(request,response); break;
+                case "productManager":showProductManager(request, response);break;
+
                 default: userList(request,response); break;
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -126,6 +128,10 @@ public class UserController extends HttpServlet {
         List<User> listSearch = userDAO.userSearch(name);
         request.setAttribute("users",listSearch);
         RequestDispatcher rd = request.getRequestDispatcher("user/userList.jsp");
+        rd.forward(request,response);
+    }
+    private void showProductManager(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("/productManager");
         rd.forward(request,response);
     }
 

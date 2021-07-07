@@ -17,6 +17,7 @@
 </head>
 <body>
 <div class="container">
+    <a href="${pageContext.request.contextPath}/userManager?action=productManager">To Product Manager</a>
 <%--    <div class="row mt-3">--%>
 <%--        <a href="${pageContext.request.contextPath}/userManager?action=create">Let's Sign Up For Now!!</a>--%>
 <%--    </div><hr>--%>

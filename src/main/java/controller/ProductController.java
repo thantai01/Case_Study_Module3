@@ -84,6 +84,7 @@ public class ProductController extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            default:mainAll(request, response);
         }
     }
 
@@ -156,8 +157,8 @@ public class ProductController extends HttpServlet {
         String productID = request.getParameter("ProductID");
         productDAO.delete(productID);
         List<Product> productList = productDAO.showALl();
-        request.setAttribute("products",productList);
+        request.setAttribute("products", productList);
         RequestDispatcher rd = request.getRequestDispatcher("user/userList.jsp");
-        rd.forward(request,response);
-
+        rd.forward(request, response);
+    }
 }
