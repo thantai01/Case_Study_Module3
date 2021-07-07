@@ -21,25 +21,18 @@
 </center>
 <div align="center">
     <table border="1" cellpadding="5">
-        <caption><h2>List of Users</h2></caption>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>price</th>
-            <th>madeIn</th>
-            <th>image</th>
-            <th>quantity</th>
-            <th>type</th>
-        </tr>
-        <c:forEach var="p" items="${listP}">
+        <c:forEach var="o" items="${listOrder}">
+            <td><c:out value="${o.id}"/></td>
+            <td><c:out value="${o.userName}"/></td>
+            <td><c:out value="${o.time}"/></td>
             <tr>
-                <td><c:out value="${p.id}"/></td>
-                <td><c:out value="${p.name}"/></td>
-                <td><c:out value="${p.price}"/></td>
-                <td><c:out value="${p.madeIn}"/></td>
-                <td><img src="${p.image}" alt="" width="100px"></td>
-                <td><c:out value="${p.quantity}"/></td>
-                <td><c:out value="${p.idType}"/></td>
+            <c:forEach var="od" items="${listDetail}">
+            <tr>
+                <td><c:out value="${od.idProduct}"/></td>
+                <td><c:out value="${od.idOrder}"/></td>
+                <td><c:out value="${od.quantity}"/></td>
+            </tr>
+            </c:forEach>
             </tr>
         </c:forEach>
     </table>

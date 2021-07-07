@@ -22,12 +22,12 @@ public class UserController extends HttpServlet {
         if (action == null) {
             action = "";
         }
-            switch (action) {
-                case "abc":
-                    break;
-                default:
-                    mainAll(request, response);
-            }
+        switch (action) {
+            case "abc":
+                break;
+            default:
+                mainAll(request, response);
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@ public class User {
     private String userPhone;
     private int role;
 
-    public User(String userID, String userPassword,String userAddress ,String userFullName, String userPhone, int role) {
+    public User(String userID, String userPassword, String userAddress, String userFullName, String userPhone, int role) {
         this.userID = userID;
         this.userPassword = userPassword;
         this.userAddress = userAddress;

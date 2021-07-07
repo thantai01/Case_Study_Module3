@@ -26,7 +26,7 @@ public class IProductDAO implements DAO<Product> {
         }
     }
 
-    PreparedStatement ps = null;
+   PreparedStatement ps = null;
     ResultSet rs = null;
 
     public IProductDAO() {
@@ -72,7 +72,7 @@ public class IProductDAO implements DAO<Product> {
         return product;
     }
 
-//        public static void main(String[] args) throws SQLException {
+    //        public static void main(String[] args) throws SQLException {
 //        IProductDAO dao = new IProductDAO();
 //        System.out.println(dao.viewProduct(3));;
 //    }

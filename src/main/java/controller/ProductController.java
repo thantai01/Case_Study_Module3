@@ -1,12 +1,7 @@
 package controller;
 
-import dao.DAO;
-import dao.IProductDAO;
-import dao.ITypeDAO;
-import dao.IUserDAO;
-import model.Product;
-import model.Type;
-import model.User;
+import dao.*;
+import model.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,8 +13,12 @@ import java.util.List;
 
 @WebServlet(name = "ProductController", urlPatterns = "/product")
 public class ProductController extends HttpServlet {
-    IProductDAO dao = new IProductDAO();
+    IUserDAO daoU = new IUserDAO();
+    IOrderDAO daoO = new IOrderDAO();
+    IOrderDetailDAO daoOD = new IOrderDetailDAO();
+    IProductDAO daoP = new IProductDAO();
     ITypeDAO daoT = new ITypeDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -29,7 +28,14 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "view":
                 try {
-                    viewProduct(request,response);
+                    viewProduct(request, response);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
+            case "cart":
+                try {
+                    order(request,response);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -46,14 +52,14 @@ public class ProductController extends HttpServlet {
 
 
     private void mainAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> listP=new ArrayList<>();
+        List<Product> listP = new ArrayList<>();
         Product product = null;
         try {
-            listP = dao.showALl();
+            listP = daoP.showALl();
             RequestDispatcher ds = request.getRequestDispatcher("Main/index.jsp");
-            product=dao.showLastProduct();
+            product = daoP.showLastProduct();
             request.setAttribute("listP", listP);
-            request.setAttribute("product",product);
+            request.setAttribute("product", product);
             ds.forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -61,22 +67,37 @@ public class ProductController extends HttpServlet {
             e.printStackTrace();
         }
     }
-    private void viewProduct(HttpServletRequest request,HttpServletResponse response) throws SQLException {
-        Product product =null;
+
+    private void viewProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        Product product = null;
         Type type = null;
         int id = Integer.parseInt(request.getParameter("id"));
         try {
-            product = dao.viewProduct(id);
+            product = daoP.viewProduct(id);
             type = daoT.viewType(product.getIdType());
             RequestDispatcher ds = request.getRequestDispatcher("Main/shop-details.jsp");
-            request.setAttribute("p",product);
-            request.setAttribute("t",type);
-            System.out.println(type);
-            ds.forward(request,response);
+            request.setAttribute("p", product);
+            request.setAttribute("t", type);
+            ds.forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void order(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        User user = daoU.selectUser("hung");
+        List<Order> listO = daoO.showListOrder();
+        List<OrderDetail> listOD = null;
+        for (Order o : listO) {
+            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
+        }
+        request.setAttribute("listOrder",listO);
+        request.setAttribute("listDetail",listOD);
+        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
+        ds.forward(request,response);
+    }
+
+
 }

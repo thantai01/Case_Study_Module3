@@ -9,25 +9,47 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IUserDAO implements DAO<User>{
+public class IUserDAO implements DAO<User> {
     private static final String SELECT_QUERY = "SELECT * FROM casestudymodule3.user";
     private static final String INSERT_QUERY_1 = "INSERT INTO `user`" + "(`name`,`password`) VALUE" + "(?,?)";
     private static final String INSERT_QUERY_2 =
-            "INSERT INTO `user`" +"(`name`,password,address,fullname,sdt,`role`) VALUE" + "(?,?,?,?,?,?)";
+            "INSERT INTO `user`" + "(`name`,password,address,fullname,sdt,`role`) VALUE" + "(?,?,?,?,?,?)";
     private static final String UPDATE_QUERY =
             "UPDATE `user` SET password=?, address=?, fullname=?, sdt=?,`role`=? WHERE `name`=? ";
     private static final String DELETE_QUERY = "DELETE `user` WHERE `name` = ?";
 
     private Connection connection;
+
     {
-        try{
+        try {
             connection = SQLConnection.getConnection();
-        } catch (ClassNotFoundException|SQLException exception) {
+        } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }
     }
 
-    public IUserDAO(){};
+    public IUserDAO() {
+    }
+    private static final String SHOW_ORDER_BY_NAME = "select * from user where name like ?;";
+
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    public User selectUser(String name) throws SQLException {
+        User user = null;
+        ps = connection.prepareStatement(SHOW_ORDER_BY_NAME);
+        ps.setString(1,name);
+        rs=ps.executeQuery();
+        while (rs.next()){
+            String userID = rs.getString("name");
+            String userPassword = rs.getString("password");
+            String userFullName = rs.getString("fullname");
+            String userAddress = rs.getString("address");
+            String userPhoneNum = rs.getString("sdt");
+            int userRole = Integer.parseInt(rs.getString("role"));
+            user = new User(userID, userPassword, userFullName, userAddress, userPhoneNum, userRole);
+        }
+        return  user;
+    }
 
     @Override
     public List<User> showALl() throws SQLException {
@@ -41,7 +63,7 @@ public class IUserDAO implements DAO<User>{
             String userAddress = rs.getString("address");
             String userPhoneNum = rs.getString("sdt");
             int userRole = Integer.parseInt(rs.getString("role"));
-            userList.add(new User(userID,userPassword,userFullName,userAddress,userPhoneNum,userRole));
+            userList.add(new User(userID, userPassword, userFullName, userAddress, userPhoneNum, userRole));
         }
         return userList;
     }
@@ -50,20 +72,22 @@ public class IUserDAO implements DAO<User>{
     @Override
     public void insert(User user) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(INSERT_QUERY_1);
-        ps.setString(1,user.getUserID());
-        ps.setString(2,user.getUserPassword());
+        ps.setString(1, user.getUserID());
+        ps.setString(2, user.getUserPassword());
         ps.executeUpdate();
     }
+
     public void insert2(User user) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(INSERT_QUERY_2);
-        ps.setString(1,user.getUserID());
-        ps.setString(2,user.getUserPassword());
-        ps.setString(3,user.getUserAddress());
-        ps.setString(4,user.getUserFullName());
-        ps.setString(5,user.getUserPhone());
+        ps.setString(1, user.getUserID());
+        ps.setString(2, user.getUserPassword());
+        ps.setString(3, user.getUserAddress());
+        ps.setString(4, user.getUserFullName());
+        ps.setString(5, user.getUserPhone());
         ps.setString(6, String.valueOf(user.getRole()));
         ps.executeUpdate();
     }
+
     @Override
     public User select(String name) throws SQLException, ClassNotFoundException {
         return null;
@@ -73,8 +97,8 @@ public class IUserDAO implements DAO<User>{
     public boolean delete(String name) throws SQLException, ClassNotFoundException {
         boolean recordDelete;
         PreparedStatement ps = connection.prepareStatement(DELETE_QUERY);
-        ps.setString(1,name);
-        recordDelete = ps.executeUpdate()>0;
+        ps.setString(1, name);
+        recordDelete = ps.executeUpdate() > 0;
         return recordDelete;
     }
 
@@ -88,13 +112,14 @@ public class IUserDAO implements DAO<User>{
         ps.setString(4, user.getUserPhone());
         ps.setString(5, String.valueOf(user.getRole()));
         ps.executeUpdate();
-        updateRecord = ps.executeUpdate()>0;
+        updateRecord = ps.executeUpdate() > 0;
         return updateRecord;
     }
+
     public List<User> userSearch(String name) throws SQLException {
-        List<User> searchList =new ArrayList<>();
+        List<User> searchList = new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement("SELECT `name`,password FROM `user` WHERE `name`=?");
-        ps.setString(1,name);
+        ps.setString(1, name);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             String userID = rs.getString("name");
@@ -103,21 +128,22 @@ public class IUserDAO implements DAO<User>{
             String userAddress = rs.getString("address");
             String userPhoneNum = rs.getString("sdt");
             int userRole = Integer.parseInt(rs.getString("role"));
-            searchList.add(new User(userID,userPassword,userFullName,userAddress,userPhoneNum,userRole));
+            searchList.add(new User(userID, userPassword, userFullName, userAddress, userPhoneNum, userRole));
         }
         return searchList;
     }
+
     public void printQLException(SQLException exception) {
-        for(Throwable e:exception) {
-            if(e instanceof SQLException) {
+        for (Throwable e : exception) {
+            if (e instanceof SQLException) {
                 e.printStackTrace(System.err);
                 System.err.println("SQL State:" + ((SQLException) e).getSQLState());
-                System.err.println("Error Code:" +((SQLException) e).getErrorCode());
+                System.err.println("Error Code:" + ((SQLException) e).getErrorCode());
                 System.err.println("Message:" + e.getMessage());
                 Throwable t = exception.getCause();
-                while (t!=null) {
+                while (t != null) {
                     System.out.println("Cause" + t);
-                    t=t.getCause();
+                    t = t.getCause();
                 }
             }
         }
