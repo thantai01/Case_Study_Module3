@@ -13,9 +13,6 @@ public class IOrderDetailDAO {
     private Connection connection;
     private static final String SELECT_QUERY = "SELECT * FROM OrderDetail";
     private static final String SHOW_BY_ORDER = "select * from orderdetail where idOrder = ?;";
-    private static final String SHOW_BY_PRODUCT = "select * from product p\n" +
-                                                    "join orderdetail od on p.id = od.idProduct\n" +
-                                                     "where od.idOrder = ?";
 
     {
         try {
@@ -58,42 +55,49 @@ public class IOrderDetailDAO {
         }
         return list;
     }
-//    private static final String SELECT_ORDERDETAIL_BY_IDORDER = "select * from OrderDetail where idOrder = ? and idProduct = ?";
-//    OrderDetail orderDetail = null;
-//    public OrderDetail orderDetailByIdOrder(int idO,int idP) throws SQLException {
-//
-//        ps = connection.prepareStatement(SELECT_ORDERDETAIL_BY_IDORDER);
-//        ps.setInt(1, idO);
-//        ps.setInt(2, idP);
-//        try {
-//            rs = ps.executeQuery();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        while (rs.next()) {
-//            int idProduct = rs.getInt("idProduct");
-//            int idOrder = rs.getInt("idOrder");
-//            int quantity = rs.getInt("quantity");
-//            orderDetail = new OrderDetail(idProduct, idOrder, quantity) ;
-//        }
-//        return orderDetail;
-//    }
-//    private static final String SELECT_ORDERDETAIL_BY_IDPRODUCT = "select * from OrderDetail where idProduct = ?";
-//    public OrderDetail orderDetailByIdProduct(int id) throws SQLException {
-//        ps = connection.prepareStatement(SELECT_ORDERDETAIL_BY_IDPRODUCT);
-//        ps.setInt(1, id);
-//        try {
-//            rs = ps.executeQuery();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        while (rs.next()) {
-//            int idProduct = rs.getInt("idProduct");
-//            int idOrder = rs.getInt("idOrder");
-//            int quantity = rs.getInt("quantity");
-//            orderDetail = new OrderDetail(idProduct, idOrder, quantity) ;
-//        }
-//        return orderDetail;
-//    }
+
+    private static final String INSERT_ORDERDETAIL = "INSERT INTO orderdetail (`idProduct`, `idOrder`, `quantity`) VALUES (?,?,?)";
+
+    public void insert(OrderDetail orderDetail) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(INSERT_ORDERDETAIL);
+        ps.setInt(1,orderDetail.getIdOrder());
+        ps.setInt(2,orderDetail.getIdProduct());
+        ps.setInt(3,orderDetail.getQuantity());
+        ps.executeUpdate();
+    }
+    private static final String SELECT_BY_ORDERID="SELECT * FROM ORDERDETAIL WHERE IDORDER = ?";
+    public OrderDetail select(int id) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(SELECT_BY_ORDERID);
+        ps.setInt(1,id);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            int idProduct = rs.getInt("idProduct");
+            int idOrder = rs.getInt("idOrder");
+            int quantity = rs.getInt("quantity");
+            return new OrderDetail(idProduct,idOrder,quantity);
+        }
+        return null;
+    }
+    private static final String DELETE_QUERY = "DELETE FROM orderdetail WHERE idProduct = ? and idOrder = ?";
+    public boolean delete(int idProduct,int idOrder) throws SQLException {
+        boolean recordDelete;
+        PreparedStatement ps = connection.prepareStatement(DELETE_QUERY);
+        ps.setInt(1,idProduct);
+        ps.setInt(2,idOrder);
+        recordDelete = ps.executeUpdate()>0;
+        return recordDelete;
+    }
+    private static final String UPDATE_QUERY = "UPDATE orderdetail SET quantity = ? WHERE (`idProduct` = ?) and (`idOrder` = ?)";
+    public boolean update(OrderDetail orderDetail) throws SQLException {
+        boolean updateRecord ;
+        PreparedStatement ps = connection.prepareStatement(UPDATE_QUERY);
+        ps.setInt(1,orderDetail.getQuantity());
+        ps.setInt(2,orderDetail.getIdProduct());
+        ps.setInt(3,orderDetail.getIdOrder());
+        ps.executeUpdate();
+        updateRecord = ps.executeUpdate()>0;
+        return updateRecord;
+    }
+
 
 }
