@@ -16,7 +16,7 @@ public class IOrderDAO {
 
     {
         try {
-            connection = SQLConnection.getConnection();
+            connection = MySQLConnection.getConnection();
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }

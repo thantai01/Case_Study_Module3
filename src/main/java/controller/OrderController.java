@@ -40,6 +40,8 @@ public class OrderController extends HttpServlet {
                     showListOrder(request, response);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
         }
     }
@@ -48,7 +50,7 @@ public class OrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-    public void showListOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    public void showListOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("listOrder.jsp");
 //        List<Order> orders = daoO.showListOrder();
 //        request.setAttribute("orders", orders);

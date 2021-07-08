@@ -16,7 +16,6 @@ public class IProductDAO implements DAO<Product> {
             "order by id desc\n" +
             "limit 1;";
     private static final String SELECT_PRODUCT_BY_ID = "select * from product where id = ?";
-//    private static final String SELECT_QUERY_PRODUCT_TYPE = "SELECT * FROM type";
     private static final String INSERT_QUERY_2 =
             "INSERT INTO product" +"(id,name,price,madeIn,image,quantity,idType) VALUE" + "(?,?,?,?,?,?,?)";
     private static final String UPDATE_QUERY =
@@ -26,14 +25,13 @@ public class IProductDAO implements DAO<Product> {
     private Connection connection;
 
     {
-        try {
-            connection = SQLConnection.getConnection();
-        } catch (ClassNotFoundException | SQLException exception) {
+        try{
+            connection = MySQLConnection.getConnection();
+        } catch (ClassNotFoundException|SQLException exception) {
             exception.printStackTrace();
         }
     }
-
-   PreparedStatement ps = null;
+    PreparedStatement ps =null;
     ResultSet rs = null;
 
     public IProductDAO() {
@@ -79,10 +77,6 @@ public class IProductDAO implements DAO<Product> {
         return product;
     }
 
-    //        public static void main(String[] args) throws SQLException {
-//        IProductDAO dao = new IProductDAO();
-//        System.out.println(dao.viewProduct(3));;
-//    }
     public Product viewProduct(int id) throws SQLException {
         Product product = null;
         ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID);

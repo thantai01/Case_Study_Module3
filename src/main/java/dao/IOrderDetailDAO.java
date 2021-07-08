@@ -1,7 +1,6 @@
 package dao;
 
 import model.OrderDetail;
-import model.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +19,7 @@ public class IOrderDetailDAO {
 
     {
         try {
-            connection = SQLConnection.getConnection();
+            connection = MySQLConnection.getConnection();
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }

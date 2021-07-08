@@ -1,6 +1,5 @@
 package dao;
 
-import model.Product;
 import model.Type;
 
 import java.sql.Connection;
@@ -15,7 +14,7 @@ public class ITypeDAO implements DAO<Type> {
 
     {
         try {
-            connection = SQLConnection.getConnection();
+            connection = MySQLConnection.getConnection();
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }
