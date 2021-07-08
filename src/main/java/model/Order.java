@@ -15,7 +15,7 @@ public class Order {
         this.time = time;
     }
 
-    public Order() {
+    public Order(int id, String userName, String time) {
     }
 
     public int getId() {

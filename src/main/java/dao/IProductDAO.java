@@ -1,7 +1,6 @@
 package dao;
 
 import model.Product;
-import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +25,7 @@ public class IProductDAO implements DAO<Product> {
     private Connection connection;
     {
         try{
-            connection = SQLConnection.getConnection();
+            connection = MySQLConnection.getConnection();
         } catch (ClassNotFoundException|SQLException exception) {
             exception.printStackTrace();
         }
