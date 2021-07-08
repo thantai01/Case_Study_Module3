@@ -26,7 +26,7 @@ public class IOrderDetailDAO {
         }
     }
 
-    List<OrderDetail> list = new ArrayList<>();
+    List<OrderDetail> list = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
@@ -34,6 +34,7 @@ public class IOrderDetailDAO {
     }
 
     public List<OrderDetail> allOrderDetail() throws SQLException {
+        list = new ArrayList<>();
         ps = connection.prepareStatement(SELECT_QUERY);
         rs = ps.executeQuery();
         while (rs.next()) {
@@ -46,6 +47,7 @@ public class IOrderDetailDAO {
     }
 
     public List<OrderDetail> showOrderDetailByIdOrder(int id) throws SQLException {
+        list = new ArrayList<>();
         ps = connection.prepareStatement(SHOW_BY_ORDER);
         ps.setInt(1, id);
         rs = ps.executeQuery();
