@@ -87,22 +87,25 @@ public class ProductController extends HttpServlet {
         }
     }
     private void viewOrderDetail(HttpServletRequest request,HttpServletResponse response) throws SQLException, ServletException, IOException {
-        User user = daoU.selectUser("hung");
-        List<Order> listO = daoO.showListOrder();
+//        User user = daoU.selectUser("hung");
+//        List<Order> listO = daoO.showListOrder();
+//        List<Product> products =  new ArrayList<>();
+//        products.add(daoP.viewProduct(od.getIdProduct()));
+        Order order = daoO.findById(1);
         List<OrderDetail> listOD = new ArrayList<>();
-        List<Product> products =  new ArrayList<>();
-        for (Order o : listO) {
-            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
-
-        }
+        List<Product> products = new ArrayList<>();
+        int total = 0;
+        listOD = daoOD.showOrderDetailByIdOrder(order.getId());
         for (OrderDetail od:listOD) {
-            products.add(daoP.viewProduct(od.getIdProduct()));
+            Product product = daoP.viewProduct(od.getIdProduct());
+            products.add(product);
+            total += daoP.total(od.getQuantity(),daoP.viewProduct(od.getIdProduct()).getPrice());
         }
-        System.out.println(products);
-        request.setAttribute("listProduct",products);
-        request.setAttribute("listOrder",listO);
+        request.setAttribute("total",total);
+        request.setAttribute("p",products);
+        request.setAttribute("Order",order);
         request.setAttribute("listDetail",listOD);
-        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
+        RequestDispatcher ds = request.getRequestDispatcher("Main/shoping-cart.jsp");
         ds.forward(request,response);
     }
 

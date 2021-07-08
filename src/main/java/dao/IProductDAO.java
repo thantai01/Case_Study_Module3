@@ -72,10 +72,10 @@ public class IProductDAO implements DAO<Product> {
         return product;
     }
 
-    //        public static void main(String[] args) throws SQLException {
-//        IProductDAO dao = new IProductDAO();
-//        System.out.println(dao.viewProduct(3));;
-//    }
+    public int total(int a,int b){
+        int total = a * b;
+        return total;
+    }
     public Product viewProduct(int id) throws SQLException {
         Product product = null;
         ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID);
