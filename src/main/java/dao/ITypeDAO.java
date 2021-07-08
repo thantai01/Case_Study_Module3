@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ITypeDAO implements DAO<Type>{
+public class ITypeDAO implements DAO<Type> {
     private static final String SELECT_TYPE_BY_ID = "select * from type where id = ?";
     private Connection connection;
 
@@ -36,8 +36,8 @@ public class ITypeDAO implements DAO<Type>{
         while (rs.next()) {
             int typeID = rs.getInt("id");
             String typeName = rs.getString("name");
-          String description = rs.getString("description");
-                type = new Type(typeID,typeName,description);
+            String description = rs.getString("description");
+            type = new Type(typeID, typeName, description);
         }
         return type;
     }

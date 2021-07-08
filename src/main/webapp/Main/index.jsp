@@ -70,7 +70,7 @@
               </ul>
             </div>
             <div class="header__top__right__auth">
-              <a href="${pageContext.request.contextPath}/main?action=login"><i class="fa fa-user"></i> Login</a>
+              <a href="login.jsp"><i class="fa fa-user"></i> Login</a>
             </div>
           </div>
         </div>
@@ -502,14 +502,14 @@
 <!-- Footer Section End -->
 
 <!-- Js Plugins -->
-<script src="../js/jquery-3.3.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.nice-select.min.js"></script>
-<script src="../js/jquery-ui.min.js"></script>
-<script src="../js/jquery.slicknav.js"></script>
-<script src="../js/mixitup.min.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/main.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
 
 
 

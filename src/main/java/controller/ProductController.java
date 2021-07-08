@@ -1,12 +1,7 @@
 package controller;
 
-import dao.DAO;
-import dao.IProductDAO;
-import dao.ITypeDAO;
-import dao.IUserDAO;
-import model.Product;
-import model.Type;
-import model.User;
+import dao.*;
+import model.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,11 +16,19 @@ public class ProductController extends HttpServlet {
     private DAO<Product> productDAO;
     private List<Product> listP;
     private ITypeDAO daoT;
+    private IUserDAO daoU;
+    private IOrderDAO daoO;
+    private IOrderDetailDAO daoOD;
+    private IProductDAO daoP;
 
     public void init() {
         productDAO = new IProductDAO();
         listP = new ArrayList<>();
         daoT = new ITypeDAO();
+        daoU = new IUserDAO();
+        daoO = new IOrderDAO();
+        daoOD = new IOrderDetailDAO();
+        daoP = new IProductDAO();
     }
 
     @Override
@@ -37,9 +40,22 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "view":
                 try {
-                    viewProductDetail(request, response);
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    viewProduct(request, response);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
+            case "cart":
+                try {
+//                    order(request,response);
+                    viewOrderDetail(request,response);
+                } catch (SQLException | ClassNotFoundException throwables) {
+                    throwables.printStackTrace();
+                    try {
+                        viewProductDetail(request, response);
+                    } catch (SQLException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case "create":
@@ -183,4 +199,40 @@ public class ProductController extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("user/userList.jsp");
         rd.forward(request, response);
     }
+    private void viewOrderDetail(HttpServletRequest request,HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
+        User user = daoU.select("hung");
+        List<Order> listO = daoO.showListOrder();
+        List<OrderDetail> listOD = new ArrayList<>();
+        List<Product> products =  new ArrayList<>();
+        for (Order o : listO) {
+            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
+
+        }
+        for (OrderDetail od:listOD) {
+            products.add(daoP.viewProduct(od.getIdProduct()));
+        }
+        System.out.println(products);
+        request.setAttribute("listProduct",products);
+        request.setAttribute("listOrder",listO);
+        request.setAttribute("listDetail",listOD);
+        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
+        ds.forward(request,response);
+    }
+
+    private void order(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
+        User user = daoU.select("hung");
+        List<Order> listO = daoO.showListOrder();
+        List<OrderDetail> listOD = null;
+        for (Order o : listO) {
+            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
+        }
+
+        request.setAttribute("listOrder",listO);
+        request.setAttribute("listDetail",listOD);
+        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
+        ds.forward(request,response);
+    }
+
+
+}
 }

@@ -33,22 +33,25 @@ public class IProductDAO implements DAO<Product> {
     }
     PreparedStatement ps =null;
     ResultSet rs = null;
-    public IProductDAO(){};
+
+    public IProductDAO() {
+    }
+
 
     @Override
     public List<Product> showALl() throws SQLException, ClassNotFoundException {
         List<Product> products = new ArrayList<>();
-         ps = connection.prepareStatement(SELECT_QUERY);
-         rs = ps.executeQuery();
+        ps = connection.prepareStatement(SELECT_QUERY);
+        rs = ps.executeQuery();
         while (rs.next()) {
             int productId = rs.getInt("id");
             String productName = rs.getString("name");
             int price = rs.getInt("price");
-           String madeIn = rs.getString("madeIn");
+            String madeIn = rs.getString("madeIn");
             String image = rs.getString("image");
             int quantity = rs.getInt("quantity");
             int idType = rs.getInt("idType");
-            products.add(new Product(productId,productName,price,madeIn,image,quantity,idType));
+            products.add(new Product(productId, productName, price, madeIn, image, quantity, idType));
         }
         return products;
     }
@@ -74,6 +77,10 @@ public class IProductDAO implements DAO<Product> {
         return product;
     }
 
+//        public static void main(String[] args) throws SQLException {
+//        IProductDAO dao = new IProductDAO();
+//        System.out.println(dao.viewProduct(3));;
+//    }
     public Product viewProduct(int id) throws SQLException {
         Product product = null;
         ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID);
