@@ -26,6 +26,7 @@ public class MainController extends HttpServlet {
             action="";
         switch (action) {
             case "login": showLoginSite(request,response);break;
+            case "sign-up" : showSignUpSite(request,response); break;
             case "viewProduct":  ; break;
             case "searchProduct": ; break;
             default:
@@ -36,6 +37,7 @@ public class MainController extends HttpServlet {
                 }
         }
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,18 +83,11 @@ public class MainController extends HttpServlet {
             rd.forward(request, response);
         }
     }
-//    private void productIntroduce (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Product> listP=new ArrayList<>();
-//        try {
-//            listP = productDAO.showALl();
-//            request.setAttribute("listP", listP);
-//            RequestDispatcher ds = request.getRequestDispatcher("/product");
-//            ds.forward(request, response);
-//            System.out.println(listP);
-//        } catch (SQLException | ClassNotFoundException exception) {
-//            exception.printStackTrace();
-//        }
-//    }
+    private void showSignUpSite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("Main/register.jsp");
+        rd.forward(request,response);
+    }
+    public void signUpUser(HttpServletRequest request, HttpServletResponse response) {
 
-
+    }
 }

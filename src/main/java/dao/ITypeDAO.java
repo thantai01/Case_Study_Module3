@@ -66,4 +66,9 @@ public class ITypeDAO implements DAO<Type>{
     public boolean update(Type type) throws SQLException {
         return false;
     }
+
+    @Override
+    public Type viewProduct(int id) {
+        return null;
+    }
 }
