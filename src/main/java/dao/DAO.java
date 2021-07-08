@@ -14,4 +14,5 @@ public interface DAO<T> {
 
     boolean update(T t) throws SQLException;
 
+    T viewProduct(int id) throws SQLException;
 }

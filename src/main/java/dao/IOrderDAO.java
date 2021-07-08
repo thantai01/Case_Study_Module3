@@ -16,7 +16,7 @@ public class IOrderDAO {
 
     {
         try {
-            connection = SQLConnection.getConnection();
+            connection = MySQLConnection.getConnection();
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }
@@ -76,12 +76,12 @@ public class IOrderDAO {
         return null;
     }
 
-    public List<Order> showListOrder() throws SQLException {
+    public List<Order> showListOrder() throws SQLException, ClassNotFoundException {
         list = new ArrayList<>();
         IOrderDAO dao = new IOrderDAO();
         IOrderDetailDAO dao1 = new IOrderDetailDAO();
         IUserDAO dao2 = new IUserDAO();
-        User user = dao2.selectUser("hung");
+        User user = dao2.select("hung");
         List<Order> listOrder = dao.showOrderByName(user.getUserID());
         Order order = dao.showAllByUsername(user.getUserID());
         List<OrderDetail> listOrderDetail = null;
