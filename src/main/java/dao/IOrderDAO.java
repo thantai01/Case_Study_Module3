@@ -57,12 +57,15 @@ public class IOrderDAO {
 //        IOrderDAO dao = new IOrderDAO();
 //        IOrderDetailDAO dao1 = new IOrderDetailDAO();
 //        IUserDAO dao2 = new IUserDAO();
-//        User user = dao2.selectUser("hung");
+////        User user = dao2.selectUser("hung");
 //        List<Order> listOrder = dao.showOrderByName(user.getUserID());
 //        Order order = dao.showAllOrderDetail(user.getUserID());
 //        List<OrderDetail> listOrderDetail = null;
 //        listOrderDetail = dao1.showOrderDetailByIdOrder(order.getId());
 //        return listOrder;
 //    }
-
+////    public  List<Order> deleteListOrder() throws  SQLException{
+////        IOrderDAO dao = new IOrderDAO();
+////        IOrderDetailDAO
+//    }
 }
