@@ -50,8 +50,8 @@ public class OrderController extends HttpServlet {
     }
     public void showListOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("listOrder.jsp");
-        List<Order> orders = daoO.showListOrder();
-        request.setAttribute("orders", orders);
+//        List<Order> orders = daoO.showListOrder();
+//        request.setAttribute("orders", orders);
         requestDispatcher.forward(request, response);
     }
     public void showDetailOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

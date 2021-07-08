@@ -91,36 +91,36 @@ public class ProductController extends HttpServlet {
 //        List<Order> listO = daoO.showListOrder();
 //        List<Product> products =  new ArrayList<>();
 //        products.add(daoP.viewProduct(od.getIdProduct()));
-        Order order = daoO.findById(1);
-        List<OrderDetail> listOD = new ArrayList<>();
-        List<Product> products = new ArrayList<>();
-        int total = 0;
-        listOD = daoOD.showOrderDetailByIdOrder(order.getId());
-        for (OrderDetail od:listOD) {
-            Product product = daoP.viewProduct(od.getIdProduct());
-            products.add(product);
-            total += daoP.total(od.getQuantity(),daoP.viewProduct(od.getIdProduct()).getPrice());
-        }
-        request.setAttribute("total",total);
-        request.setAttribute("p",products);
-        request.setAttribute("Order",order);
-        request.setAttribute("listDetail",listOD);
-        RequestDispatcher ds = request.getRequestDispatcher("Main/shoping-cart.jsp");
-        ds.forward(request,response);
+//        Order order = daoO.findById(1);
+//        List<OrderDetail> listOD = new ArrayList<>();
+//        List<Product> products = new ArrayList<>();
+//        int total = 0;
+//        listOD = daoOD.showOrderDetailByIdOrder(order.getId());
+//        for (OrderDetail od:listOD) {
+//            Product product = daoP.viewProduct(od.getIdProduct());
+//            products.add(product);
+//            total += daoP.total(od.getQuantity(),daoP.viewProduct(od.getIdProduct()).getPrice());
+//        }
+//        request.setAttribute("total",total);
+//        request.setAttribute("p",products);
+//        request.setAttribute("Order",order);
+//        request.setAttribute("listDetail",listOD);
+//        RequestDispatcher ds = request.getRequestDispatcher("Main/shoping-cart.jsp");
+//        ds.forward(request,response);
     }
 
     private void order(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        User user = daoU.selectUser("hung");
-        List<Order> listO = daoO.showListOrder();
-        List<OrderDetail> listOD = null;
-        for (Order o : listO) {
-            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
-        }
-
-        request.setAttribute("listOrder",listO);
-        request.setAttribute("listDetail",listOD);
-        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
-        ds.forward(request,response);
+//        User user = daoU.selectUser("hung");
+//        List<Order> listO = daoO.showListOrder();
+//        List<OrderDetail> listOD = null;
+//        for (Order o : listO) {
+//            listOD = daoOD.showOrderDetailByIdOrder(o.getId());
+//        }
+//
+//        request.setAttribute("listOrder",listO);
+//        request.setAttribute("listDetail",listOD);
+//        RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
+//        ds.forward(request,response);
     }
 
 
