@@ -232,7 +232,4 @@ public class ProductController extends HttpServlet {
         RequestDispatcher ds = request.getRequestDispatcher("abc.jsp");
         ds.forward(request,response);
     }
-
-
-}
 }

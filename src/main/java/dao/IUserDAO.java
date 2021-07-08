@@ -11,6 +11,7 @@ import java.util.List;
 
 public class IUserDAO implements DAO<User>{
     private static final String SELECT_QUERY = "SELECT * FROM db_project1.user";
+    private static final String SELECT_BY_NAME = "SELECT * FROM db_project1.user WHERE `name`=? ";
     private static final String INSERT_QUERY_1 = "INSERT INTO `user`" + "(`name`,`password`,`role`) VALUE" + "(?,?,?)";
     private static final String INSERT_QUERY_2 =
             "INSERT INTO `user`" +"(`name`,password,address,fullname,sdt,`role`) VALUE" + "(?,?,?,?,?,?)";
@@ -66,7 +67,20 @@ public class IUserDAO implements DAO<User>{
     }
     @Override
     public User select(String name) throws SQLException, ClassNotFoundException {
-        return null;
+        User user = null;
+        PreparedStatement ps = connection.prepareStatement(SELECT_BY_NAME);
+        ps.setString(1,name);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            String user_name = rs.getString("name");
+            String user_password = rs.getString("password");
+            String address = rs.getString("address");
+            String fullname = rs.getString("fullname");
+            String sdt = rs.getString("sdt");
+            String role = rs.getString("role");
+            user = new User(user_name,user_password,address,fullname,sdt,Integer.parseInt(role));
+        }
+        return user;
     }
 
     @Override

@@ -26,8 +26,9 @@ public class IOrderDAO {
 
     public IOrderDAO() {
     }
-    private static final String SHOW_BY_Name = "SELECT * FROM casestudymodule3.order where userName like ?;";
-    private static final String SHOW_BY_ID = "SELECT * FROM casestudymodule3.order where userName like ?;";
+    private static final String SHOW_BY_Name = "SELECT * FROM db_project1.order where userName like ?;";
+    private static final String SHOW_BY_ID = "SELECT * FROM db_project1.order where userName like ?;";
+
    public List<Order> showOrderByName(String name) throws SQLException {
         ps = connection.prepareStatement(SHOW_BY_Name);
         ps.setString(1,name);
@@ -53,11 +54,11 @@ public class IOrderDAO {
        }
        return order;
     }
-    public List<Order> showListOrder() throws SQLException {
+    public List<Order> showListOrder() throws SQLException, ClassNotFoundException {
         IOrderDAO dao = new IOrderDAO();
         IOrderDetailDAO dao1 = new IOrderDetailDAO();
         IUserDAO dao2 = new IUserDAO();
-        User user = dao2.selectUser("hung");
+        User user = dao2.select("hung");
         List<Order> listOrder = dao.showOrderByName(user.getUserID());
         Order order = dao.showAllOrderDetail(user.getUserID());
         List<OrderDetail> listOrderDetail = null;

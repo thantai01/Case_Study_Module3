@@ -68,7 +68,7 @@ public class UserController extends HttpServlet {
         rd.forward(request,response);
     }
     private void showCreatForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("user/register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Main/register.jsp");
         rd.forward(request,response);
     }
 
@@ -81,7 +81,7 @@ public class UserController extends HttpServlet {
 //        int role = Integer.parseInt(request.getParameter("userRole"));
         User newUser = new User(userID,userPassword,address,fullName,phoneNumber,0);
         userDAO.insert2(newUser);
-        RequestDispatcher rd = request.getRequestDispatcher("user/register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Main/register.jsp");
         request.setAttribute("message", "New user was created");
         rd.forward(request,response);
     }
@@ -112,7 +112,6 @@ public class UserController extends HttpServlet {
         User editedUser = new User(userID,userPassword,address,fullName,phoneNum,role);
         userDAO.update(editedUser);
         RequestDispatcher rd = request.getRequestDispatcher("user/edit.jsp");
-        request.setAttribute("message", "User was edit...");
         rd.forward(request,response);
     }
     private void deleteUser(HttpServletRequest request,HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {

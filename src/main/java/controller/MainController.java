@@ -2,6 +2,7 @@ package controller;
 
 import dao.DAO;
 import dao.IProductDAO;
+import dao.IUserDAO;
 import dao.LoginDAO;
 import model.Product;
 import model.User;
@@ -26,7 +27,6 @@ public class MainController extends HttpServlet {
             action="";
         switch (action) {
             case "login": showLoginSite(request,response);break;
-            case "sign-up" : showSignUpSite(request,response); break;
             case "viewProduct":  ; break;
             case "searchProduct": ; break;
             default:
@@ -37,7 +37,6 @@ public class MainController extends HttpServlet {
                 }
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,7 +51,6 @@ public class MainController extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-            case "create":  ; break;
             case "": ; break;
 //            default: showMainSite(request,response);
         }
@@ -83,11 +81,5 @@ public class MainController extends HttpServlet {
             rd.forward(request, response);
         }
     }
-    private void showSignUpSite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("Main/register.jsp");
-        rd.forward(request,response);
-    }
-    public void signUpUser(HttpServletRequest request, HttpServletResponse response) {
 
-    }
 }
