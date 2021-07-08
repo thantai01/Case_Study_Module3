@@ -1,6 +1,7 @@
 package controller;
 
 import dao.IUserDAO;
+import dao.LoginDAO;
 import model.User;
 
 import javax.servlet.*;
@@ -25,6 +26,7 @@ public class UserController extends HttpServlet {
             action="";
         try {
             switch (action) {
+                case "login" :showLoginSite(request,response);break;
                 case "create": showCreatForm(request,response);break;
                 case "edit": showEditForm(request,response); ; break;
                 case "delete": deleteUser(request,response);break;
@@ -45,6 +47,7 @@ public class UserController extends HttpServlet {
             action="";
         try {
             switch (action) {
+                case "login": loginCheck1(request, response);break;
                 case "create":
                     insertUser(request,response);
                     break;
@@ -61,6 +64,11 @@ public class UserController extends HttpServlet {
             exception.printStackTrace();
         }
     }
+    public void showLoginSite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("Main/login.jsp");
+        rd.forward(request,response);
+    }
+
     private void userList(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         List<User> userList = userDAO.showALl();
         request.setAttribute("users",userList);
@@ -133,5 +141,18 @@ public class UserController extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/productManager");
         rd.forward(request,response);
     }
-
+    public void loginCheck1(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ClassNotFoundException, ServletException {
+        String user = request.getParameter("userName");
+        String password = request.getParameter("userPassword");
+        User loginUser = LoginDAO.checkLogin(user,password);
+        if(user == null)
+            showLoginSite(request,response);
+        if (loginUser != null && loginUser.getRole() == 0) {
+            RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
+            rd.forward(request, response);
+        }
+        if (loginUser != null && loginUser.getRole() == 1) {
+            response.sendRedirect("/userManager");
+        }
+    }
 }

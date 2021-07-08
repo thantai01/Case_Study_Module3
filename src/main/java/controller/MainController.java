@@ -45,11 +45,11 @@ public class MainController extends HttpServlet {
             action="";
         switch (action) {
             case "login":
-                try {
-                    loginCheck(request,response);
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    loginCheck(request,response);
+//                } catch (SQLException | ClassNotFoundException e) {
+//                    e.printStackTrace();
+//                }
                 break;
             case "": ; break;
 //            default: showMainSite(request,response);
@@ -63,23 +63,23 @@ public class MainController extends HttpServlet {
         rd.forward(request,response);
     }
     public void showLoginSite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("Main/login.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/userManager");
         rd.forward(request,response);
     }
     public void loginCheck(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ClassNotFoundException, ServletException {
-        String user = request.getParameter("userName");
-        String password = request.getParameter("userPassword");
-        User loginUser = LoginDAO.checkLogin(user,password);
-        if(user == null)
-            showLoginSite(request,response);
-        if (loginUser != null && loginUser.getRole() == 0) {
-            RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
-            rd.forward(request, response);
-        }
-        if (loginUser != null && loginUser.getRole() == 1) {
-            RequestDispatcher rd = request.getRequestDispatcher("/userManager");
-            rd.forward(request, response);
-        }
-    }
+//        String user = request.getParameter("userName");
+//        String password = request.getParameter("userPassword");
+//        User loginUser = LoginDAO.checkLogin(user,password);
+//        if(user == null)
+//            showLoginSite(request,response);
+//        if (loginUser != null && loginUser.getRole() == 0) {
+//            RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
+//            rd.forward(request, response);
+//        }
+//        if (loginUser != null && loginUser.getRole() == 1) {
+//            RequestDispatcher rd = request.getRequestDispatcher("/userManager");
+//            rd.forward(request, response);
+//        }
 
+    }
 }

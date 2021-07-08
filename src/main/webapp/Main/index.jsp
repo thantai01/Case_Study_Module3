@@ -70,7 +70,7 @@
               </ul>
             </div>
             <div class="header__top__right__auth">
-              <a href="${pageContext.request.contextPath}/main?action=login"><i class="fa fa-user"></i> Login</a>
+              <a href="${pageContext.request.contextPath}/userManager?action=login"><i class="fa fa-user"></i> Login</a>
             </div>
           </div>
         </div>
