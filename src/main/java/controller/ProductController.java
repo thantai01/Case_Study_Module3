@@ -49,6 +49,21 @@ public class ProductController extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            case "edit":
+                try {
+                    showEditForm(request, response);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "delete":
+                try {
+                    deleteProduct(request, response);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+
             default:
                 showListAllProduct(request, response);
         }
@@ -56,6 +71,11 @@ public class ProductController extends HttpServlet {
 
     public void showCreatForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/create.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    public void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/edit.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -104,24 +124,16 @@ public class ProductController extends HttpServlet {
             case "edit":
                 try {
                     updateProduct(request, response);
-                } catch (SQLException | ClassNotFoundException e){
+                } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
-            case "delete":
-                try {
-                    deleteProduct(request, response);
-                } catch (SQLException | ClassNotFoundException e){
-                    e.printStackTrace();
-                }
-                break;
+
         }
     }
 
 
-
-
-    public void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,SQLException, ClassNotFoundException {
+    public void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         String name = request.getParameter("name");
         String price = request.getParameter("price");
         String madeIn = request.getParameter("madeIn");
@@ -141,8 +153,9 @@ public class ProductController extends HttpServlet {
         }
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,SQLException, ClassNotFoundException {
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         String name = request.getParameter("name");
+        String id = request.getParameter("id");
         String price = request.getParameter("price");
         String madeIn = request.getParameter("madeIn");
         String image = request.getParameter("image");
@@ -150,7 +163,7 @@ public class ProductController extends HttpServlet {
         String idType = request.getParameter("idType");
 
         try {
-            Product newProduct = new Product(name,
+            Product newProduct = new Product(Integer.parseInt(id), name,
                     Integer.parseInt(price),
                     madeIn, image, Integer.parseInt(quantity), Integer.parseInt(idType));
             productDAO.update(newProduct);
@@ -164,10 +177,10 @@ public class ProductController extends HttpServlet {
         }
     }
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,SQLException, ClassNotFoundException {
-        String name = request.getParameter("name");
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String id = request.getParameter("id");
         try {
-            productDAO.delete(name);
+            productDAO.delete(id);
             showListAllProduct(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -175,18 +188,6 @@ public class ProductController extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //

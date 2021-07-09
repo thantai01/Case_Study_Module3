@@ -15,7 +15,7 @@
 <center>
     <h1>User Management</h1>
     <h2>
-        <a href="users?action=users">Back</a>
+        <a href="productManager?action=productManager">Back</a>
     </h2>
 </center>
 <div align="center">
