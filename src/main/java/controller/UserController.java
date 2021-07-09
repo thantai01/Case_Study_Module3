@@ -71,7 +71,6 @@ public class UserController extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("user/register.jsp");
         rd.forward(request,response);
     }
-
     private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String userID = request.getParameter("userName");
         String userPassword = request.getParameter("userPassword");

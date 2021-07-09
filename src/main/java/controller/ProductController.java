@@ -45,13 +45,16 @@ public class ProductController extends HttpServlet {
                     throwables.printStackTrace();
                 }
                 break;
+
             case "cart":
-//                try {
-//                    order(request,response);
-//                    viewOrderDetail(request, response);
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
+                try {
+
+                    viewProductDetail(request, response);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 mainAll(request, response);
@@ -89,7 +92,8 @@ public class ProductController extends HttpServlet {
             RequestDispatcher ds = request.getRequestDispatcher("Main/shop-details.jsp");
             request.setAttribute("p", product);
             request.setAttribute("t", type);
-            System.out.println(type);
+            HttpSession session = request.getSession();
+            session.setAttribute("idProduct",id);
             ds.forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
@@ -100,10 +104,10 @@ public class ProductController extends HttpServlet {
     }
 
     private void viewProductDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        String productID = request.getParameter("productID");
-        Product product = productDAO.select(productID);
-        request.setAttribute("product", product);
-        RequestDispatcher rd = request.getRequestDispatcher("product/view.jsp");
+//        String productID = request.getParameter("productID");
+//        Product product = productDAO.select(productID);
+//        request.setAttribute("product", product);
+        RequestDispatcher rd = request.getRequestDispatcher("Main/shoping-cart.jsp");
         rd.forward(request, response);
     }
 
@@ -162,8 +166,4 @@ public class ProductController extends HttpServlet {
         rd.forward(request, response);
     }
 
-//    private void viewOrderDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
-//        User user = daoU.select("hung");
-//        List<Order> listO = daoO.showListOrder();
-//    }
 }

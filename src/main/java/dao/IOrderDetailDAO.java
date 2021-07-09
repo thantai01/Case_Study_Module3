@@ -60,8 +60,8 @@ public class IOrderDetailDAO {
 
     public void insert(OrderDetail orderDetail) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(INSERT_ORDERDETAIL);
-        ps.setInt(1,orderDetail.getIdOrder());
-        ps.setInt(2,orderDetail.getIdProduct());
+        ps.setInt(2,orderDetail.getIdOrder());
+        ps.setInt(1,orderDetail.getIdProduct());
         ps.setInt(3,orderDetail.getQuantity());
         ps.executeUpdate();
     }

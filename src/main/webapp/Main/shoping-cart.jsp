@@ -265,25 +265,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="i" begin="0" end="${orderDs.size()-1}">
+                        <c:forEach var="p" items="${list}" >
                             <tr>
                                 <td class="shoping__cart__item">
-                                    <img src="${products.get(i).image}" alt="" width="100px">
-                                    <h5>${products.get(i).name} ${products.get(i).madeIn}</h5>
+                                    <img src="${p.image}" alt="" width="100px">
+                                    <h5>${p.name} ${p.madeIn}</h5>
                                 </td>
                                 <td class="shoping__cart__price">
-                                        ${products.get(i).price}
+                                        ${p.price}
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
-<%--                                        <div class="pro-qty">--%>
-                                           ${orderDs.get(i).quantity}
-<%--                                        </div>--%>
+                                           ${p.quantity}
                                     </div>
                                 </td>
 
                                 <td class="shoping__cart__total">
-                                        ${products.get(i).price*orderDs.get(i).quantity} VNĐ
+                                        ${p.price*p.quantity} VNĐ
                                 </td>
 
                                 <td class="shoping__cart__item__close">
@@ -308,10 +306,13 @@
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        <li>Subtotal <span>${total}</span></li>
-                        <li>Total <span>${total }</span></li>
+                        <li>Subtotal <span>${sum}</span></li>
+                        <li>Total <span>${sum }</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <form method="post" action="/orders">
+                        <input type="hidden" name="action" value="add">
+                        <input type="submit" value="PROCEED TO CHECKOUT">
+                    </form>
                 </div>
             </div>
 

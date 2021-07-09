@@ -116,7 +116,7 @@
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span></span></a></li>
                         <c:if test="${acc!=null}">
-                            <li><a href="/orders"><i class="fa fa-shopping-bag"></i> <span></span></a></li>
+                            <li><a href="/orders?action=view"><i class="fa fa-shopping-bag"></i> <span></span></a></li>
                         </c:if>
                         <c:if test="${acc==null}">
                             <li><a href="/main?action=login"><i class="fa fa-shopping-bag"></i> <span></span></a></li>

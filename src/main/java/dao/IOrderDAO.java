@@ -89,5 +89,13 @@ public class IOrderDAO {
         return listOrder;
     }
 
+    private static final String INSERT_ORDERDETAIL = "INSERT INTO `order` (id, userName, time) VALUES (?,?,?)";
 
+    public void insert(Order order) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(INSERT_ORDERDETAIL);
+        ps.setInt(1,order.getId());
+        ps.setString(2,order.getUserName());
+        ps.setString(3,order.getTime());
+        ps.executeUpdate();
+    }
 }

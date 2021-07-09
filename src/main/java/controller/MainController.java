@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,19 +99,25 @@ public class MainController extends HttpServlet {
         String user = request.getParameter("userName");
         String password = request.getParameter("userPassword");
         User loginUser = LoginDAO.checkLogin(user, password);
+        PrintWriter out = response.getWriter();
+        RequestDispatcher rd;
         if (user == null)
+//            request.setAttribute("message","A Chương ok");
+//         rd = request.getRequestDispatcher("Main/login.jsp");
             showLoginSite(request, response);
+//        rd.forward(request,response);
         if (loginUser != null && loginUser.getRole() == 0) {
             List<Product> listP;
             listP = productDAO.showALl();
             request.setAttribute("listP", listP);
-            RequestDispatcher rd = request.getRequestDispatcher("Main/index.jsp");
+             rd = request.getRequestDispatcher("Main/index.jsp");
             HttpSession session = request.getSession();
             session.setAttribute("acc", loginUser);
+//            request.setAttribute("message",null);
             rd.forward(request, response);
         }
         if (loginUser != null && loginUser.getRole() == 1) {
-            RequestDispatcher rd = request.getRequestDispatcher("/userManager");
+            rd = request.getRequestDispatcher("/userManager");
             rd.forward(request, response);
         }
     }

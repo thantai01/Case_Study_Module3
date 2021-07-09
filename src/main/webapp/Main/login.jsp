@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ACER PC
@@ -31,6 +32,11 @@
     <div class="card">
       <div class="card-header">
         <h3>Sign In</h3>
+          <c:if test="${message!=null}">
+              <div class="alert alert-primary" role="alert">
+                  ${message}
+              </div>
+          </c:if>
         <div class="d-flex justify-content-end social_icon">
           <span><i class="fab fa-facebook-square"></i></span>
           <span><i class="fab fa-google-plus-square"></i></span>
