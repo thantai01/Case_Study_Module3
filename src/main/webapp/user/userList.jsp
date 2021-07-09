@@ -17,13 +17,11 @@
 </head>
 <body>
 <div class="container">
+    <a href="${pageContext.request.contextPath}/userManager?action=BackToMain">Get back to Main Site</a>
     <a href="${pageContext.request.contextPath}/userManager?action=productManager">To Product Manager</a>
-<%--    <div class="row mt-3">--%>
-<%--        <a href="${pageContext.request.contextPath}/userManager?action=create">Let's Sign Up For Now!!</a>--%>
-<%--    </div><hr>--%>
     <div class="row mt-3">
         <form method="post">
-            <label>User Name
+            <label>Admin Name
                 <input type="text" name="userID">
             </label>
             <label> Password
@@ -33,7 +31,7 @@
         </form>
         <form method="get">
             <label> Search
-                <input type="search" name="userName" style="width: 200px">
+                <input type="search" placeholder="USer Name" name="userName" style="width: 200px">
             </label>
             <input type="submit" name="action" value="Search">
         </form>

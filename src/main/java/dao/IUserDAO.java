@@ -14,7 +14,7 @@ public class IUserDAO implements DAO<User>{
     private static final String INSERT_QUERY_1 = "INSERT INTO `user`" + "(`name`,`password`,`role`) VALUE" + "(?,?,?)";
     private static final String INSERT_QUERY_2 =
             "INSERT INTO `user`" +"(`name`,password,address,fullname,sdt,`role`) VALUE" + "(?,?,?,?,?,?)";
-    private static final String UPDATE_QUERY =
+    private static final String     UPDATE_QUERY =
             "UPDATE `user` SET password=?, address=?, fullname=?, sdt=?,`role`=? WHERE `name`=? ";
     private static final String DELETE_QUERY = "DELETE FROM `user` WHERE `name` = ?";
 
@@ -98,7 +98,8 @@ public class IUserDAO implements DAO<User>{
         ps.setString(2, user.getUserAddress());
         ps.setString(3, user.getUserFullName());
         ps.setString(4, user.getUserPhone());
-        ps.setString(5, String.valueOf(user.getRole()));
+        ps.setInt(5, user.getRole());
+        ps.setString(6,user.getUserID());
         ps.executeUpdate();
         updateRecord = ps.executeUpdate()>0;
         return updateRecord;

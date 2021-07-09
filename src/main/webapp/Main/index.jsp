@@ -69,8 +69,14 @@
                 <li><a href="#">English</a></li>
               </ul>
             </div>
+            <%
+              String userName = (String) session.getAttribute("user");
+              if (userName != null) {
+
+              }
+            %>
             <div class="header__top__right__auth">
-              <a href="${pageContext.request.contextPath}/userManager?action=login"><i class="fa fa-user"></i> Login</a>
+              <a href="${pageContext.request.contextPath}/userManager?action=login" ><i class="fa fa-user"></i> Login</a>
             </div>
           </div>
         </div>
