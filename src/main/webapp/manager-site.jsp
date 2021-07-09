@@ -11,7 +11,7 @@
     <title>Manager Site</title>
 </head>
 <body>
-    <a href="/admin?action=userManager"> User Management</a>
-    <a href="/admin?action=productManager"> Product Management</a>
+    <a href="/userManager"> User Management</a>
+    <a href="/productManager"> Product Management</a>
 </body>
 </html>

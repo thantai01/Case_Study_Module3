@@ -15,10 +15,10 @@ public class IProductDAO implements DAO<Product> {
     private static final String LAST_QUERY = "select * from product \n" +
             "order by id desc\n" +
             "limit 1;";
-    private static final String SELECT_PRODUCT_BY_ID = "select * from product where id = ?";
-//    private static final String SELECT_QUERY_PRODUCT_TYPE = "SELECT * FROM type";
-    private static final String INSERT_QUERY_2 =
-            "INSERT INTO product" +"(id,name,price,madeIn,image,quantity,idType) VALUE" + "(?,?,?,?,?,?,?)";
+    private static final String SELECT_PRODUCT_BY_ID_QUERY = "select * from product where id = ?";
+
+    private static final String INSERT_QUERY_2 ="INSERT INTO product" +"(name,price,madeIn,image,quantity,idType) VALUE" + "(?,?,?,?,?,?)";
+
     private static final String UPDATE_QUERY =
             "UPDATE product SET name=?, price=?, madeIn=?, image=?, quantity=?, idType =? WHERE `id`=? ";
     private static final String DELETE_QUERY = "DELETE FROM product WHERE `id` = ?";
@@ -35,6 +35,8 @@ public class IProductDAO implements DAO<Product> {
     ResultSet rs = null;
     public IProductDAO(){};
 
+
+    //hiển thị tất cả
     @Override
     public List<Product> showALl() throws SQLException, ClassNotFoundException {
         List<Product> products = new ArrayList<>();
@@ -74,27 +76,29 @@ public class IProductDAO implements DAO<Product> {
         return product;
     }
 
-    public Product viewProduct(int id) throws SQLException {
-        Product product = null;
-        ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID);
-        ps.setInt(1, id);
-        try {
-            rs = ps.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        while (rs.next()) {
-            int productId = rs.getInt("id");
-            String productName = rs.getString("name");
-            int price = rs.getInt("price");
-            String madeIn = rs.getString("madeIn");
-            String image = rs.getString("image");
-            int quantity = rs.getInt("quantity");
-            int idType = rs.getInt("idType");
-            product = new Product(productId, productName, price, madeIn, image, quantity, idType);
-        }
-        return product;
-    }
+
+//    //tìm theo id
+//    public Product viewProduct(int id) throws SQLException {
+//        Product product = null;
+//        ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID_QUERY);
+//        ps.setInt(1, id);
+//        try {
+//            rs = ps.executeQuery();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        while (rs.next()) {
+//            int productId = rs.getInt("id");
+//            String productName = rs.getString("name");
+//            int price = rs.getInt("price");
+//            String madeIn = rs.getString("madeIn");
+//            String image = rs.getString("image");
+//            int quantity = rs.getInt("quantity");
+//            int idType = rs.getInt("idType");
+//            product = new Product(productId, productName, price, madeIn, image, quantity, idType);
+//        }
+//        return product;
+//    }
 
     @Override
     public void insert(Product product) throws SQLException, ClassNotFoundException {
@@ -111,7 +115,7 @@ public class IProductDAO implements DAO<Product> {
     @Override
     public Product select(String id) throws SQLException, ClassNotFoundException {
         Product product = null;
-        PreparedStatement ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID);
+        PreparedStatement ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID_QUERY);
         ps.setString(1,id);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

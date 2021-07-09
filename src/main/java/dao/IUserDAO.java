@@ -21,7 +21,7 @@ public class IUserDAO implements DAO<User>{
     private Connection connection;
     {
         try{
-            connection = MySQLConnection.getConnection();
+            connection = SQLConnection.getConnection();
         } catch (ClassNotFoundException|SQLException exception) {
             exception.printStackTrace();
         }
@@ -91,6 +91,12 @@ public class IUserDAO implements DAO<User>{
         updateRecord = ps.executeUpdate()>0;
         return updateRecord;
     }
+
+//    @Override
+//    public User viewProduct(int id) throws SQLException {
+//        return null;
+//    }
+
     public List<User> userSearch(String name) throws SQLException {
         List<User> searchList =new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement("SELECT `name`,password FROM `user` WHERE `name`=?");

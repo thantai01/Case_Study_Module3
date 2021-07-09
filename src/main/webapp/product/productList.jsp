@@ -5,6 +5,7 @@
   Time: 9:33 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,27 +18,28 @@
         <table  class="table table-bordered" style="text-align: center">
             <tr><h3>Product List</h3></tr>
             <tr>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Xuất Sứ</th>
+                <th>Hình Ảnh</th>
+                <th>Số lượng</th>
+                <th>Mã Loại</th>
                 <th>Action</th>
             </tr>
-            <c:forEach var="product" items="${requestScope['listP']}">
+            <c:forEach var="product" items="${products}">
                 <tr>
                     <td>${product.id}</td>
                     <td>${product.name}</td>
                     <td>${product.price}</td>
                     <td>${product.madeIn}</td>
-                    <td>${product.image}</td>
+                    <td><img src="${product.image}" width="20%"></td>
                     <td>${product.quantity}</td>
                     <td>${product.idType}</td>
                     <td>
-                        <a class="btn btn-primary" style="background-color: #3b5998;" href="<c:url value="/productManager?action=edit&userID=${product.id}"/>" role="button">Edit</a>
-                        <a class="btn btn-primary" style="background-color: #55acee;" href="<c:url value="/productManager?action=delete&userID=${product.id}"/>" role="button">Delete</a>
+                        <a href="/productManager?action=create">Create</a>
+                        <a href="/productManager?action=edit&id=${product.id}">Edit</a>
+                        <a href="/productManager?action=delete&id=${product.id}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

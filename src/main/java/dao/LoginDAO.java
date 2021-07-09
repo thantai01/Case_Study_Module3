@@ -13,7 +13,7 @@ public class LoginDAO {
 
     public LoginDAO() {
         try {
-            connection = MySQLConnection.getConnection();
+            connection = SQLConnection.getConnection();
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }
@@ -21,7 +21,7 @@ public class LoginDAO {
 
     public static User checkLogin(String userName, String userPassword) throws SQLException, ClassNotFoundException {
         try {
-            connection = MySQLConnection.getConnection();
+            connection = SQLConnection.getConnection();
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }
