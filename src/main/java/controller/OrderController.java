@@ -4,6 +4,7 @@ import dao.*;
 import model.Order;
 import model.OrderDetail;
 import model.Product;
+import model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -51,9 +52,11 @@ public class OrderController extends HttpServlet {
 
     }
     public void showListOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
+        HttpSession session= request.getSession();
+        User user= (User) session.getAttribute("acc");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("listOrder.jsp");
-//        List<Order> orders = daoO.showListOrder();
-//        request.setAttribute("orders", orders);
+        List<Order> orders = daoO.showListOrder(user.getUserID());
+        request.setAttribute("orders", orders);
         requestDispatcher.forward(request, response);
     }
     public void showDetailOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -62,9 +65,15 @@ public class OrderController extends HttpServlet {
         List<OrderDetail> orderDs = daoOD.showOrderDetailByIdOrder(id);
         Order order = daoO.findById(id);
         List<Product> products = new ArrayList<>();
+        int total=0 ;
+        int index =0;
         for (int i=0 ;i<orderDs.size();i++) {
             products.add(daoP.viewProduct(orderDs.get(i).getIdProduct()));
+            total += orderDs.get(i).getQuantity()*products.get(i).getPrice();
+            index++;
         }
+        request.setAttribute("index",index);
+        request.setAttribute("total",total);
         request.setAttribute("orderDs", orderDs);
         request.setAttribute("order", order);
         request.setAttribute("products", products);

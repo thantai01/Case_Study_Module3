@@ -164,7 +164,7 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>${index}</span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>$150.00</span></div>
                 </div>
@@ -276,9 +276,9 @@
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="${orderDs.get(i).quantity}" name="quantity">
-                                        </div>
+<%--                                        <div class="pro-qty">--%>
+                                           ${orderDs.get(i).quantity}
+<%--                                        </div>--%>
                                     </div>
                                 </td>
 
@@ -308,12 +308,13 @@
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        <li>Subtotal <span>$454.98</span></li>
-                        <li>Total <span></span></li>
+                        <li>Subtotal <span>${total}</span></li>
+                        <li>Total <span>${total }</span></li>
                     </ul>
                     <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
