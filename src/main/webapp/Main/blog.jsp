@@ -277,7 +277,7 @@
                                     <img src="img/blog/sidebar/sr-1.jpg" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
-                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
+                                    <h6>09 Kinds Of Vegetables<br/> Protect The Liver</h6>
                                     <span>MAR 05, 2019</span>
                                 </div>
                             </a>
@@ -286,7 +286,7 @@
                                     <img src="img/blog/sidebar/sr-2.jpg" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
-                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
+                                    <h6>Tips You To Balance<br/> Nutrition Meal Day</h6>
                                     <span>MAR 05, 2019</span>
                                 </div>
                             </a>
@@ -295,7 +295,7 @@
                                     <img src="img/blog/sidebar/sr-3.jpg" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
-                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
+                                    <h6>4 Principles Help You Lose <br/>Weight With Vegetables</h6>
                                     <span>MAR 05, 2019</span>
                                 </div>
                             </a>
@@ -490,9 +490,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                    <div class="footer__copyright__text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart"
+                                                                                aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
                     <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                 </div>
             </div>
@@ -510,7 +515,6 @@
 <script src="js/mixitup.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
-
 
 
 </body>

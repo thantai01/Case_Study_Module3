@@ -13,6 +13,7 @@ import java.util.List;
 
 public class IOrderDAO {
     private Connection connection;
+
     {
         try {
             connection = MySQLConnection.getConnection();
@@ -26,9 +27,10 @@ public class IOrderDAO {
 
     public IOrderDAO() {
     }
-    private static final String SHOW_BY_Name = "SELECT * FROM casestudymodule3.order where userName like ?;";
-    private static final String SHOW_BY_ID = "SELECT * FROM casestudymodule3.order where userName like ?;";
-    public List<Order> showOrderByName(String name) throws SQLException {
+    private static final String SHOW_BY_Name = "SELECT * FROM db_project1.order where userName like ?;";
+    private static final String SHOW_BY_ID = "SELECT * FROM db_project1.order where userName like ?;";
+
+   public List<Order> showOrderByName(String name) throws SQLException {
         ps = connection.prepareStatement(SHOW_BY_Name);
         ps.setString(1,name);
         rs = ps.executeQuery();
@@ -40,32 +42,50 @@ public class IOrderDAO {
         }
         return list;
     }
-    public Order showAllOrderDetail(String name) throws SQLException {
-        Order order =null;
-        ps = connection.prepareStatement(SHOW_BY_ID);
-        ps.setString(1,name);
-        rs=ps.executeQuery();
-        while (rs.next()){
+
+    public Order showAllByUsername(String name) throws SQLException {
+        list = new ArrayList<>();
+        Order order = null;
+        ps = connection.prepareStatement(SHOW_BY_Name);
+        ps.setString(1, name);
+        rs = ps.executeQuery();
+        while (rs.next()) {
             int idOrder = rs.getInt("id");
             String userName = rs.getString("userName");
             String time = rs.getString("time");
-            order = new Order(idOrder,userName,time);
+            order = new Order(idOrder, userName, time);
         }
         return order;
     }
-//    public List<Order> showListOrder() throws SQLException {
-//        IOrderDAO dao = new IOrderDAO();
-//        IOrderDetailDAO dao1 = new IOrderDetailDAO();
-//        IUserDAO dao2 = new IUserDAO();
-////        User user = dao2.selectUser("hung");
-//        List<Order> listOrder = dao.showOrderByName(user.getUserID());
-//        Order order = dao.showAllOrderDetail(user.getUserID());
-//        List<OrderDetail> listOrderDetail = null;
-//        listOrderDetail = dao1.showOrderDetailByIdOrder(order.getId());
-//        return listOrder;
-//    }
-////    public  List<Order> deleteListOrder() throws  SQLException{
-////        IOrderDAO dao = new IOrderDAO();
-////        IOrderDetailDAO
-//    }
+
+    private static final String FIND_BY_ID = "SELECT * FROM casestudymodule3.order where id = ?;";
+
+    public Order findById(int id) throws SQLException {
+        Order order = null;
+        ps = connection.prepareStatement(FIND_BY_ID);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int idOrder = rs.getInt("id");
+            String userName = rs.getString("userName");
+            String time = rs.getString("time");
+            return order = new Order(idOrder, userName, time);
+        }
+        return null;
+    }
+
+    public List<Order> showListOrder(String name) throws SQLException, ClassNotFoundException {
+        list = new ArrayList<>();
+        IOrderDAO dao = new IOrderDAO();
+        IOrderDetailDAO dao1 = new IOrderDetailDAO();
+        IUserDAO dao2 = new IUserDAO();
+        User user = dao2.select(name);
+        List<Order> listOrder = dao.showOrderByName(user.getUserID());
+        Order order = dao.showAllByUsername(user.getUserID());
+        List<OrderDetail> listOrderDetail = null;
+        listOrderDetail = dao1.showOrderDetailByIdOrder(order.getId());
+        return listOrder;
+    }
+
+
 }

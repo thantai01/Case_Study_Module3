@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ACER PC
@@ -163,7 +164,7 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>${index}</span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>$150.00</span></div>
                 </div>
@@ -264,72 +265,32 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="shoping__cart__item">
-                                <img src="img/cart/cart-1.jpg" alt="">
-                                <h5>Vegetable’s Package</h5>
-                            </td>
-                            <td class="shoping__cart__price">
-                                $55.00
-                            </td>
-                            <td class="shoping__cart__quantity">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
+                        <c:forEach var="i" begin="0" end="${orderDs.size()-1}">
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <img src="${products.get(i).image}" alt="" width="100px">
+                                    <h5>${products.get(i).name} ${products.get(i).madeIn}</h5>
+                                </td>
+                                <td class="shoping__cart__price">
+                                        ${products.get(i).price}
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    <div class="quantity">
+<%--                                        <div class="pro-qty">--%>
+                                           ${orderDs.get(i).quantity}
+<%--                                        </div>--%>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="shoping__cart__total">
-                                $110.00
-                            </td>
-                            <td class="shoping__cart__item__close">
-                                <span class="icon_close"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="shoping__cart__item">
-                                <img src="img/cart/cart-2.jpg" alt="">
-                                <h5>Fresh Garden Vegetable</h5>
-                            </td>
-                            <td class="shoping__cart__price">
-                                $39.00
-                            </td>
-                            <td class="shoping__cart__quantity">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="shoping__cart__total">
-                                $39.99
-                            </td>
-                            <td class="shoping__cart__item__close">
-                                <span class="icon_close"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="shoping__cart__item">
-                                <img src="img/cart/cart-3.jpg" alt="">
-                                <h5>Organic Bananas</h5>
-                            </td>
-                            <td class="shoping__cart__price">
-                                $69.00
-                            </td>
-                            <td class="shoping__cart__quantity">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="shoping__cart__total">
-                                $69.99
-                            </td>
-                            <td class="shoping__cart__item__close">
-                                <span class="icon_close"></span>
-                            </td>
-                        </tr>
+                                </td>
+
+                                <td class="shoping__cart__total">
+                                        ${products.get(i).price*orderDs.get(i).quantity} VNĐ
+                                </td>
+
+                                <td class="shoping__cart__item__close">
+                                    <span class="icon_close"></span>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -343,27 +304,17 @@
                         Upadate Cart</a>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="shoping__continue">
-                    <div class="shoping__discount">
-                        <h5>Discount Codes</h5>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your coupon code">
-                            <button type="submit" class="site-btn">APPLY COUPON</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" style="margin-right: 100px">
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        <li>Subtotal <span>$454.98</span></li>
-                        <li>Total <span>$454.98</span></li>
+                        <li>Subtotal <span>${total}</span></li>
+                        <li>Total <span>${total }</span></li>
                     </ul>
                     <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -426,9 +377,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                    <div class="footer__copyright__text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart"
+                                                                                aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
                     <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                 </div>
             </div>

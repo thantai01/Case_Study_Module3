@@ -66,6 +66,18 @@ public class IUserDAO implements DAO<User>{
     }
     @Override
     public User select(String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE name like ?");
+        ps.setString(1,name);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            String userID = rs.getString("name");
+            String userPassword = rs.getString("password");
+            String userFullName = rs.getString("fullname");
+            String userAddress = rs.getString("address");
+            String userPhoneNum = rs.getString("sdt");
+            int userRole = Integer.parseInt(rs.getString("role"));
+            return new User(userID,userPassword,userFullName,userAddress,userPhoneNum,userRole);
+        }
         return null;
     }
 
@@ -86,7 +98,8 @@ public class IUserDAO implements DAO<User>{
         ps.setString(2, user.getUserAddress());
         ps.setString(3, user.getUserFullName());
         ps.setString(4, user.getUserPhone());
-        ps.setString(5, String.valueOf(user.getRole()));
+        ps.setInt(5, user.getRole());
+        ps.setString(6,user.getUserID());
         ps.executeUpdate();
         updateRecord = ps.executeUpdate()>0;
         return updateRecord;
