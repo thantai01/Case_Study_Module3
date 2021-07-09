@@ -65,9 +65,15 @@ public class OrderController extends HttpServlet {
         List<OrderDetail> orderDs = daoOD.showOrderDetailByIdOrder(id);
         Order order = daoO.findById(id);
         List<Product> products = new ArrayList<>();
+        int total=0 ;
+        int index =0;
         for (int i=0 ;i<orderDs.size();i++) {
             products.add(daoP.viewProduct(orderDs.get(i).getIdProduct()));
+            total += orderDs.get(i).getQuantity()*products.get(i).getPrice();
+            index++;
         }
+        request.setAttribute("index",index);
+        request.setAttribute("total",total);
         request.setAttribute("orderDs", orderDs);
         request.setAttribute("order", order);
         request.setAttribute("products", products);
