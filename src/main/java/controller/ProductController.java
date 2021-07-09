@@ -35,13 +35,13 @@ public class ProductController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "view":
-                try {
-                    showView(request, response);
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                break;
+//            case "view":
+//                try {
+//                    showView(request, response);
+//                } catch (SQLException | ClassNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                break;
             case "create":
                 try {
                     showCreatForm(request, response);
@@ -74,10 +74,10 @@ public class ProductController extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    public void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/edit.jsp");
-        requestDispatcher.forward(request, response);
-    }
+//    public void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/edit.jsp");
+//        requestDispatcher.forward(request, response);
+//    }
 
     public void showListAllProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/productList.jsp");
@@ -92,18 +92,20 @@ public class ProductController extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    public void showView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/view.jsp");
+    public void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/update.jsp");
         String id = request.getParameter("id");
         try {
-            Product products = productDAO.select(id);
-            request.setAttribute("products", products);
+            Product product = productDAO.select(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("product/edit.jsp");
+            request.setAttribute("product", product);
+            dispatcher.forward(request,response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        requestDispatcher.forward(request, response);
+
     }
 
 

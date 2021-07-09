@@ -32,37 +32,37 @@
             <tr>
                 <th>Name:</th>
                 <td>
-                    <input type="text" name="name" size="60" placeholder="Nhập tên loại hoa quả"/>
+                    <input type="text" name="name" size="60"   value="${product.name}" />
                 </td>
             </tr>
             <tr>
                 <th>Price:</th>
                 <td>
-                    <input type="text" name="price" size="60" placeholder="Nhập giá"/>
+                    <input type="text" name="price" size="60" value="<c:out value='${product.price}' />"/>
                 </td>
             </tr>
             <tr>
                 <th>madeIn:</th>
                 <td>
-                    <input type="text" name="madeIn"  size="60" placeholder="Nhập xuất sứ"/>
+                    <input type="text" name="madeIn"  size="60" value="<c:out value='${product.madeIn}' />"/>
                 </td>
             </tr>
             <tr>
                 <th>Image:</th>
                 <td>
-                    <input type="text" name="image"  size="60" placeholder="Nhập link ảnh"/>
+                    <input type="text" name="image"  size="60" value="<c:out value='${product.image}' />"/>
                 </td>
             </tr>
             <tr>
                 <th>Quantity:</th>
                 <td>
-                    <input type="text" name="quantity"  size="60" placeholder="Nhập số lượng"/>
+                    <input type="text" name="quantity"  size="60" value="<c:out value='${product.quantity}' />"/>
                 </td>
             </tr>
             <tr>
                 <th>Id Type:</th>
                 <td>
-                    <input type="text" name="idType"  size="60" placeholder="Nhập mã loại"/>
+                    <input type="text" name="idType"  size="60" value="<c:out value='${product.idType}' />"/>
                 </td>
             </tr>
             <tr>
