@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IUserDAO implements DAO<User>{
-    private static final String SELECT_QUERY = "SELECT * FROM user";
+    private static final String SELECT_QUERY = "SELECT * FROM db_project1.user";
     private static final String INSERT_QUERY_1 = "INSERT INTO `user`" + "(`name`,`password`,`role`) VALUE" + "(?,?,?)";
     private static final String INSERT_QUERY_2 =
             "INSERT INTO `user`" +"(`name`,password,address,fullname,sdt,`role`) VALUE" + "(?,?,?,?,?,?)";
-    private static final String     UPDATE_QUERY =
+    private static final String UPDATE_QUERY =
             "UPDATE `user` SET password=?, address=?, fullname=?, sdt=?,`role`=? WHERE `name`=? ";
     private static final String DELETE_QUERY = "DELETE FROM `user` WHERE `name` = ?";
 

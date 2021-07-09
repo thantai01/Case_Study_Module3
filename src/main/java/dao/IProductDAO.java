@@ -15,6 +15,10 @@ public class IProductDAO implements DAO<Product> {
     private static final String LAST_QUERY = "select * from product \n" +
             "order by id desc\n" +
             "limit 1;";
+    private static final String SELECT_PRODUCT_BY_ID_QUERY = "select * from product where id = ?";
+
+//    private static final String INSERT_QUERY_2 = "INSERT INTO product" + "(name,price,madeIn,image,quantity,idType) VALUE" + "(?,?,?,?,?,?)";
+
     private static final String SELECT_PRODUCT_BY_ID = "select * from product where id = ?";
     private static final String INSERT_QUERY_2 =
             "INSERT INTO product" +"(id,name,price,madeIn,image,quantity,idType) VALUE" + "(?,?,?,?,?,?,?)";
@@ -25,33 +29,37 @@ public class IProductDAO implements DAO<Product> {
     private Connection connection;
 
     {
-        try{
-            connection = MySQLConnection.getConnection();
-        } catch (ClassNotFoundException|SQLException exception) {
+        try {
+            connection = SQLConnection.getConnection();
+        } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
         }
     }
-    PreparedStatement ps =null;
+
+    PreparedStatement ps = null;
     ResultSet rs = null;
 
     public IProductDAO() {
     }
 
+    ;
 
+
+    //hiển thị tất cả
     @Override
     public List<Product> showALl() throws SQLException, ClassNotFoundException {
         List<Product> products = new ArrayList<>();
-        ps = connection.prepareStatement(SELECT_QUERY);
-        rs = ps.executeQuery();
+         ps = connection.prepareStatement(SELECT_QUERY);
+         rs = ps.executeQuery();
         while (rs.next()) {
             int productId = rs.getInt("id");
             String productName = rs.getString("name");
             int price = rs.getInt("price");
-            String madeIn = rs.getString("madeIn");
+           String madeIn = rs.getString("madeIn");
             String image = rs.getString("image");
             int quantity = rs.getInt("quantity");
             int idType = rs.getInt("idType");
-            products.add(new Product(productId, productName, price, madeIn, image, quantity, idType));
+            products.add(new Product(productId,productName,price,madeIn,image,quantity,idType));
         }
         return products;
     }
@@ -102,20 +110,20 @@ public class IProductDAO implements DAO<Product> {
     @Override
     public void insert(Product product) throws SQLException, ClassNotFoundException {
         PreparedStatement ps = connection.prepareStatement(INSERT_QUERY_2);
-        ps.setString(1,product.getName());
-        ps.setInt(2,product.getPrice());
+        ps.setString(1, product.getName());
+        ps.setInt(2, product.getPrice());
         ps.setString(3, product.getMadeIn());
         ps.setString(4, product.getImage());
         ps.setInt(5, product.getQuantity());
-        ps.setInt(6,product.getIdType());
+        ps.setInt(6, product.getIdType());
         ps.executeUpdate();
     }
 
     @Override
     public Product select(String id) throws SQLException, ClassNotFoundException {
         Product product = null;
-        PreparedStatement ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID);
-        ps.setString(1,id);
+        PreparedStatement ps = connection.prepareStatement(SELECT_PRODUCT_BY_ID_QUERY);
+        ps.setString(1, id);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             String p_id = rs.getString("id");
@@ -127,8 +135,8 @@ public class IProductDAO implements DAO<Product> {
             String p_type = rs.getString("idType");
             product =
                     new Product(Integer.parseInt(p_id),
-                            p_name,Integer.parseInt(p_price),
-                            p_madeIn,p_image,
+                            p_name, Integer.parseInt(p_price),
+                            p_madeIn, p_image,
                             Integer.parseInt(p_quantity),
                             Integer.parseInt(p_type));
         }
@@ -139,8 +147,8 @@ public class IProductDAO implements DAO<Product> {
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
         boolean recordDelete;
         PreparedStatement ps = connection.prepareStatement(DELETE_QUERY);
-        ps.setString(1,id);
-        recordDelete = ps.executeUpdate()>0;
+        ps.setString(1, id);
+        recordDelete = ps.executeUpdate() > 0;
         return recordDelete;
     }
 
@@ -154,8 +162,9 @@ public class IProductDAO implements DAO<Product> {
         ps.setString(4, product.getImage());
         ps.setInt(5, product.getQuantity());
         ps.setInt(6, product.getIdType());
+        ps.setInt(7, product.getId());
         ps.executeUpdate();
-        updateRecord = ps.executeUpdate()>0;
+        updateRecord = ps.executeUpdate() > 0;
         return updateRecord;
     }
 
