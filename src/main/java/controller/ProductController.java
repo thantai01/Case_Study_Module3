@@ -162,8 +162,8 @@ public class ProductController extends HttpServlet {
         rd.forward(request, response);
     }
 
-    private void viewOrderDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
-        User user = daoU.select("hung");
-        List<Order> listO = daoO.showListOrder();
-    }
+//    private void viewOrderDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
+//        User user = daoU.select("hung");
+//        List<Order> listO = daoO.showListOrder();
+//    }
 }
