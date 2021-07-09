@@ -36,7 +36,8 @@ public class UserController extends HttpServlet {
                 case "productManager":showProductManager(request, response);break;
 
                 case "BackToMain": backToMain(request,response);break;
-                default: userList(request,response); break;
+                default: userList(request,response);
+                break;
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

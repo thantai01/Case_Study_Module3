@@ -13,6 +13,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+<%
+    User admin = (User) session.getAttribute("user");
+    String loginTime = (String) session.getAttribute("loginTime");
+    String fullName = admin.getUserID();
+%>
     <div class="container-fluid">
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,38 +29,31 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <%
-                        User admin = (User) session.getAttribute("user");
-                        String loginTime = (String) session.getAttribute("loginTime");
-                        String fullName = admin.getUserID();
-                    %>
-                    <span>
-                        <h5> WELCOME: <%=fullName%></h5>
-                        <h5> Login Time: <%=loginTime%></h5>
-                    </span>
-
-<%--                    <div class="collapse navbar-collapse" id="navbarSupportedContent">--%>
-<%--                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
-<%--                            <li class="nav-item">--%>
-<%--                                <a class="nav-link active" aria-current="page" href="#">User Management</a>--%>
-<%--                            </li>--%>
-<%--                            <li class="nav-item">--%>
-<%--                                <a class="nav-link" href="#">Product Management</a>--%>
-<%--                            </li>--%>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">User Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/productManager">Product Management</a>
+                            </li>
 <%--                            <li class="nav-item">--%>
 <%--                                <a class="nav-link" href="#">Order Management</a>--%>
 <%--                            </li>--%>
-<%--                        </ul>--%>
-<%--                        <form class="d-flex">--%>
-<%--                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--%>
-<%--                            <button class="btn btn-outline-success" type="submit">Search</button>--%>
-<%--                        </form>--%>
-<%--                    </div>--%>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
                 </div>
             </nav>
         </div>
         <div class="row">
-            <div class="col-4">
+              <span><p> WELCOME: <%=fullName%> Login Time: <%=loginTime%></p></span><hr>
+        </div>
+        <div class="row">
+            <div class="col-8">
                 <h3>User Management</h3>
                 <div class="container-fluid">
                     <div class="row mt-3">
@@ -99,9 +97,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-
             </div>
             <div class="col-4"></div>
         </div>

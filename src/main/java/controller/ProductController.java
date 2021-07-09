@@ -75,21 +75,24 @@ public class ProductController extends HttpServlet {
     }
 
     public void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String productName = request.getParameter("name");
+        Product existingProduct = productDAO.select(productName);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/edit.jsp");
+        request.setAttribute("user",existingProduct);
         requestDispatcher.forward(request, response);
     }
 
     public void showListAllProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/productList.jsp");
+//        RequestDispatcher rd = request.getRequestDispatcher("user/main-manager.jsp");
         try {
             List<Product> products = productDAO.showALl();
             request.setAttribute("products", products);
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         requestDispatcher.forward(request, response);
+//        rd.forward(request, response);
     }
 
     public void showView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
@@ -98,10 +101,8 @@ public class ProductController extends HttpServlet {
         try {
             Product products = productDAO.select(id);
             request.setAttribute("products", products);
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         requestDispatcher.forward(request, response);
     }
@@ -146,10 +147,8 @@ public class ProductController extends HttpServlet {
                     madeIn, image, Integer.parseInt(quantity), Integer.parseInt(idType));
             productDAO.insert(newProduct);
             showListAllProduct(request, response);
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -168,12 +167,8 @@ public class ProductController extends HttpServlet {
                     madeIn, image, Integer.parseInt(quantity), Integer.parseInt(idType));
             productDAO.update(newProduct);
             showListAllProduct(request, response);
-        } catch (SQLException throwables) {
+        } catch (SQLException | ServletException | IOException throwables) {
             throwables.printStackTrace();
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -182,10 +177,8 @@ public class ProductController extends HttpServlet {
         try {
             productDAO.delete(id);
             showListAllProduct(request, response);
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 }
